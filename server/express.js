@@ -5,7 +5,14 @@ import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 
+import UserRoutes from './routes/user.routes';
+import AuthRoutes from './routes/auth.routes';
+
+import devBundle from './devBundle';
+
 const app = express();
+
+devBundle.compile(app);
 
 app
 	.use(bodyParser.json())
@@ -13,6 +20,16 @@ app
 	.use(cookieParser())
 	.use(compress())
 	.use(helmet())
-	.use(cors());
+	.use(cors())
+	.use('/', UserRoutes)
+	.use('/', AuthRoutes)
+	.use((err, req, res, next) => {
+		if (err.name === 'UnauthorizedError') {
+			res.status(401).json({ 'error': err.name + ': ' + err.message });
+		} else if (err) {
+			res.status(400).json({ 'error': err.name + ': ' + err.message });
+			console.log(err);
+		}
+	});
 
 export default app;
