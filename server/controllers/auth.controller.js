@@ -8,16 +8,14 @@ const signin = async (req, res) => {
 		let user = await User.findOne({
 			'email': req.body.email
 		});
-		if (!user)
-			return res.status(401).json({
-				error: 'User not found'
-			});
 
-		if (!user.authenticate(req.body.password)) {
-			return res.status(401).send({
-				error: 'Email and password don\'t match.'
-			});
-		}
+		if (!user) return res.status(401).json({
+			error: 'User not found'
+		});
+
+		if (!user.authenticate(req.body.password)) return res.status(401).send({
+			error: 'Email and password don\'t match.'
+		});
 
 		const token = jwt.sign({
 			_id: user._id
@@ -35,13 +33,10 @@ const signin = async (req, res) => {
 				email: user.email
 			}
 		});
-
-	} catch (err) {
-
+	} catch (e) {
 		return res.status(401).json({
-			error: 'Could not sign in'
+			error: 'Could not sign in', message: e.text
 		});
-
 	}
 };
 
@@ -54,17 +49,15 @@ const signout = (req, res) => {
 
 const requireSignin = expressJwt({
 	secret: config.jwtSecret,
-	algorithms: ['RS256'],
+	algorithms: ['HS256'],
 	userProperty: 'auth'
 });
 
 const hasAuthorization = (req, res, next) => {
 	const authorized = req.profile && req.auth && req.profile._id === req.auth._id;
-	if (!authorized) {
-		return res.status(403).json({
-			error: 'User is not authorized'
-		});
-	}
+	if (!authorized) return res.status(403).json({
+		error: 'User is not authorized'
+	});
 	next();
 };
 
