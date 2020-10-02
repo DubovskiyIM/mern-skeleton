@@ -1,4 +1,4 @@
-const signin = async (user) => {
+const signin = async user => {
 	try {
 		let response = await fetch('/auth/signin/', {
 			method: 'POST',
@@ -11,7 +11,7 @@ const signin = async (user) => {
 		});
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 
@@ -20,7 +20,7 @@ const signout = async () => {
 		let response = await fetch('/auth/signout/', { method: 'GET' });
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 

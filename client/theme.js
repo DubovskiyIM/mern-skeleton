@@ -22,6 +22,6 @@ const theme = createMuiTheme({
 		protectedTitle: pink['400'],
 		type: 'light'
 	}
-})
+});
 
 export default theme;

@@ -31,16 +31,28 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function Home() {
+const Home = () => {
 	const classes = useStyles();
 	return (
 		<Card className={classes.card}>
 			<Typography variant="h6" className={classes.title}>
 				Home Page
 			</Typography>
-			<CardMedia className={classes.media} image={unicornbikeImg} title="Unicorn Bicycle"/>
-			<Typography variant="body2" component="p" className={classes.credit} color="textSecondary">Photo by <a
-				href="https://unsplash.com/@boudewijn_huysmans" target="_blank" rel="noopener noreferrer">Boudewijn Huysmans</a> on Unsplash</Typography>
+			<CardMedia
+				className={classes.media}
+				image={unicornbikeImg}
+				title="Unicorn Bicycle"
+			/>
+			<Typography
+				variant="body2"
+				component="p"
+				className={classes.credit}
+				color="textSecondary"
+			>Photo by <a
+					href="https://unsplash.com/@boudewijn_huysmans"
+					target="_blank"
+					rel="noopener noreferrer"
+				>Boudewijn Huysmans</a> on Unsplash</Typography>
 			<CardContent>
 				<Typography variant="body1" component="p">
 					Welcome to the MERN Skeleton home page.
@@ -48,4 +60,6 @@ export default function Home() {
 			</CardContent>
 		</Card>
 	);
-}
+};
+
+export default Home;

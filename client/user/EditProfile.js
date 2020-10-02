@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function EditProfile({ match }) {
+const EditProfile = ({ match }) => {
 	const classes = useStyles();
 	const [values, setValues] = useState({
 		name: '',
@@ -47,6 +47,7 @@ export default function EditProfile({ match }) {
 		error: '',
 		redirectToProfile: false
 	});
+
 	const jwt = auth.isAuthenticated();
 
 	useEffect(() => {
@@ -55,7 +56,7 @@ export default function EditProfile({ match }) {
 
 		read({
 			userId: match.params.userId
-		}, { t: jwt.token }, signal).then((data) => {
+		}, { t: jwt.token }, signal).then(data => {
 			if (data && data.error) {
 				setValues({ ...values, error: data.error });
 			} else {
@@ -86,6 +87,7 @@ export default function EditProfile({ match }) {
 			}
 		});
 	};
+
 	const handleChange = name => event => {
 		setValues({ ...values, [name]: event.target.value });
 	};
@@ -93,28 +95,57 @@ export default function EditProfile({ match }) {
 	if (values.redirectToProfile) {
 		return (<Redirect to={'/user/' + values.userId}/>);
 	}
+
 	return (
 		<Card className={classes.card}>
 			<CardContent>
 				<Typography variant="h6" className={classes.title}>
 					Edit Profile
 				</Typography>
-				<TextField id="name" label="Name" className={classes.textField} value={values.name}
-				           onChange={handleChange('name')} margin="normal"/><br/>
-				<TextField id="email" type="email" label="Email" className={classes.textField} value={values.email}
-				           onChange={handleChange('email')} margin="normal"/><br/>
-				<TextField id="password" type="password" label="Password" className={classes.textField} value={values.password}
-				           onChange={handleChange('password')} margin="normal"/>
-				<br/> {
-				values.error && (<Typography component="p" color="error">
-					<Icon color="error" className={classes.error}>error</Icon>
-					{values.error}
-				</Typography>)
-			}
+				<TextField
+					id="name"
+					label="Name"
+					className={classes.textField}
+					value={values.name}
+					onChange={handleChange('name')}
+					margin="normal"
+				/><br/>
+				<TextField
+					id="email"
+					type="email"
+					label="Email"
+					className={classes.textField}
+					value={values.email}
+					onChange={handleChange('email')}
+					margin="normal"
+				/><br/>
+				<TextField
+					id="password"
+					type="password"
+					label="Password"
+					className={classes.textField}
+					value={values.password}
+					onChange={handleChange('password')}
+					margin="normal"
+				/>
+				<br/>
+				{
+					values.error && (<Typography component="p" color="error">
+						<Icon color="error" className={classes.error}>error</Icon>
+						{values.error}
+					</Typography>)
+				}
 			</CardContent>
 			<CardActions>
-				<Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
+				<Button
+					color="primary"
+					variant="contained"
+					onClick={clickSubmit}
+					className={classes.submit}
+				>Submit</Button>
 			</CardActions>
 		</Card>
 	);
-}
+};
+
+export default EditProfile;

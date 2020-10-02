@@ -12,6 +12,7 @@ const App = () => {
 			jssStyles.parentNode.removeChild(jssStyles);
 		}
 	}, []);
+
 	return (
 		<BrowserRouter>
 			<ThemeProvider theme={theme}>

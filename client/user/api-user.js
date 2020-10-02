@@ -1,4 +1,4 @@
-const create = async (user) => {
+const create = async user => {
 	try {
 		let response = await fetch('/api/users/', {
 			method: 'POST',
@@ -10,11 +10,11 @@ const create = async (user) => {
 		});
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 
-const list = async (signal) => {
+const list = async signal => {
 	try {
 		let response = await fetch('/api/users/', {
 			method: 'GET',
@@ -22,7 +22,7 @@ const list = async (signal) => {
 		});
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 
@@ -39,7 +39,7 @@ const read = async (params, credentials, signal) => {
 		});
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 
@@ -56,7 +56,7 @@ const update = async (params, credentials, user) => {
 		});
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 
@@ -72,7 +72,7 @@ const remove = async (params, credentials) => {
 		});
 		return await response.json();
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 };
 

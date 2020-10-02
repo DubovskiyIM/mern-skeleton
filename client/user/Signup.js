@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function Signup() {
+const Signup = () => {
 	const classes = useStyles();
 	const [values, setValues] = useState({
 		name: '',
@@ -61,7 +61,8 @@ export default function Signup() {
 			email: values.email || undefined,
 			password: values.password || undefined
 		};
-		create(user).then((data) => {
+
+		create(user).then(data => {
 			if (data.error) {
 				setValues({ ...values, error: data.error });
 			} else {
@@ -76,20 +77,48 @@ export default function Signup() {
 					<Typography variant="h6" className={classes.title}>
 						Sign Up
 					</Typography>
-					<TextField id="name" label="Name" className={classes.textField} value={values.name}
-					           onChange={handleChange('name')} margin="normal"/><br/>
-					<TextField id="email" type="email" label="Email" className={classes.textField} value={values.email}
-					           onChange={handleChange('email')} margin="normal"/><br/>
-					<TextField id="password" type="password" label="Password" className={classes.textField}
-					           value={values.password} onChange={handleChange('password')} margin="normal"/>
-					<br/> {
-					values.error && (<Typography component="p" color="error">
-						<Icon color="error" className={classes.error}>error</Icon>
-						{values.error}</Typography>)
-				}
+					<TextField
+						id="name"
+						label="Name"
+						className={classes.textField}
+						value={values.name}
+						onChange={handleChange('name')}
+						margin="normal"
+					/><br/>
+					<TextField
+						id="email"
+						type="email"
+						label="Email"
+						className={classes.textField}
+						value={values.email}
+						onChange={handleChange('email')}
+						margin="normal"
+					/><br/>
+					<TextField
+						id="password"
+						type="password"
+						label="Password"
+						className={classes.textField}
+						value={values.password}
+						onChange={handleChange('password')}
+						margin="normal"
+					/>
+					<br/>
+					{
+						values.error &&
+						(<Typography component="p" color="error">
+							<Icon color="error" className={classes.error}>error</Icon>
+							{values.error}
+						</Typography>)
+					}
 				</CardContent>
 				<CardActions>
-					<Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
+					<Button
+						color="primary"
+						variant="contained"
+						onClick={clickSubmit}
+						className={classes.submit}
+					>Submit</Button>
 				</CardActions>
 			</Card>
 			<Dialog open={values.open} disableBackdropClick={true}>
@@ -101,7 +130,11 @@ export default function Signup() {
 				</DialogContent>
 				<DialogActions>
 					<Link to="/signin">
-						<Button color="primary" autoFocus="autoFocus" variant="contained">
+						<Button
+							color="primary"
+							autoFocus="autoFocus"
+							variant="contained"
+						>
 							Sign In
 						</Button>
 					</Link>
@@ -109,4 +142,6 @@ export default function Signup() {
 			</Dialog>
 		</div>
 	);
-}
+};
+
+export default Signup;

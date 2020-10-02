@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function Signin(props) {
+const Signin = (props) => {
 	const classes = useStyles();
 	const [values, setValues] = useState({
 		email: '',
@@ -72,6 +72,7 @@ export default function Signin(props) {
 			pathname: '/'
 		}
 	};
+
 	const { redirectToReferrer } = values;
 	if (redirectToReferrer) {
 		return (<Redirect to={from}/>);
@@ -83,20 +84,43 @@ export default function Signin(props) {
 				<Typography variant="h6" className={classes.title}>
 					Sign In
 				</Typography>
-				<TextField id="email" type="email" label="Email" className={classes.textField} value={values.email}
-				           onChange={handleChange('email')} margin="normal"/><br/>
-				<TextField id="password" type="password" label="Password" className={classes.textField} value={values.password}
-				           onChange={handleChange('password')} margin="normal"/>
-				<br/> {
-				values.error && (<Typography component="p" color="error">
-					<Icon color="error" className={classes.error}>error</Icon>
-					{values.error}
-				</Typography>)
-			}
+				<TextField
+					id="email"
+					type="email"
+					label="Email"
+					className={classes.textField}
+					value={values.email}
+					onChange={handleChange('email')}
+					margin="normal"
+				/>
+				<br/>
+				<TextField
+					id="password"
+					type="password"
+					label="Password"
+					className={classes.textField}
+					value={values.password}
+					onChange={handleChange('password')}
+					margin="normal"
+				/>
+				<br/>
+				{
+					values.error && (<Typography component="p" color="error">
+						<Icon color="error" className={classes.error}>error</Icon>
+						{values.error}
+					</Typography>)
+				}
 			</CardContent>
 			<CardActions>
-				<Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
+				<Button
+					color="primary"
+					variant="contained"
+					onClick={clickSubmit}
+					className={classes.submit}
+				>Submit</Button>
 			</CardActions>
 		</Card>
 	);
-}
+};
+
+export default Signin;

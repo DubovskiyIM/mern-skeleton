@@ -14,6 +14,7 @@ const isActive = (history, path) => {
 	else
 		return { color: '#ffffff' };
 };
+
 const Menu = withRouter(({ history }) => (
 	<AppBar position="static">
 		<Toolbar>
